@@ -2,7 +2,9 @@
 Github Actions for Managing Microsofts PVA as a template for PVA Projects
 
 ## secrets you need to setup 
-PowerPlatformSPN : service principal secret
+PowerPlatformSPN : service principal secret  
+please find a [howto create one](https://the.cognitiveservices.ninja/articles/helper02/) article in the.cognitiveservices.ninja blog
+
 
 ## actions:
 workflow dispatch:
