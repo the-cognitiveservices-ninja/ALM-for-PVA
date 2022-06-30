@@ -1,4 +1,4 @@
-# ALM-for-PVA
+# Application Lifecycle Managment for Microsofts Power Virtual Agent
 Github Actions for Managing Microsofts PVA as a template for PVA Projects
 
 ## secrets you need to setup 
