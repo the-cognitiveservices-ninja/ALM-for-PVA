@@ -1,0 +1,72 @@
+name: deploy development environment
+# Reusable workflow
+# deploy solution to a development environment
+
+on:
+  workflow_dispatch:
+    inputs: 
+      #Do Not change these values
+
+      solution_name:
+        description: 'The solution name.'
+        type: string
+        default: DemoEnvironment       
+      solution_outbound_folder:
+        description: 'staging the unpacked solution folder before check-in *do not change*'
+        type: string
+        default: out/solutions/
+      solution_source_folder: 
+       description: 'folder name to be created and checked in *do not change*'
+       type: string
+       default: solutions/
+      DEV_ENVIRONMENT_URL:
+        description: 'Development environment url.'
+        type: string
+        required: true      
+      CLIENT_ID: 
+        description: 'The client id'
+        type: string
+        required: true
+      TENANT_ID: 
+        description: 'The tenant id'
+        type: string
+        required: true
+
+
+jobs:
+  convert-to-unmanaged:
+    runs-on: windows-latest
+    # or you can say runs-on: ubuntu-latest
+    env:
+      RUNNER_DEBUG: 1
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        lfs: true
+
+    - name: Pack solution
+      uses: microsoft/powerplatform-actions/pack-solution@0.4.0
+      with:
+        solution-folder: ${{ inputs.solution_source_folder}}/${{ inputs.solution_name }}
+        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+        solution-type: Unmanaged
+
+    - name: who-am-i action
+      uses: microsoft/powerplatform-actions/who-am-i@0.4.0
+      with:
+        environment-url: ${{inputs.DEV_ENVIRONMENT_URL}}
+        app-id: ${{inputs.CLIENT_ID}}
+        client-secret: ${{ secrets.PowerPlatformSPN }}
+        tenant-id: ${{inputs.TENANT_ID}}
+
+    - name: Import solution as unmanaged to dev env
+      uses: microsoft/powerplatform-actions/import-solution@0.4.0
+      with:
+        environment-url: ${{inputs.DEV_ENVIRONMENT_URL}}
+        app-id: ${{inputs.CLIENT_ID}}
+        client-secret: ${{ secrets.PowerPlatformSPN }}
+        tenant-id: ${{inputs.TENANT_ID}}
+        solution-file: ${{ inputs.solution_outbound_folder}}/${{ inputs.solution_name }}.zip
+        force-overwrite: true
+        publish-changes: true
