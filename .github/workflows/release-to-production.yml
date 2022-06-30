@@ -1,0 +1,24 @@
+name: Release action production DDComs
+# Call the reusable workflow release-solution-to-xxx-reusable.yml
+# Release your solution to staging.
+
+on:
+  pull_request:
+    types:
+      - closed
+  workflow_dispatch:
+  
+  
+jobs:
+  Release-solution-staging:
+    uses: ./.github/workflows/release-solution-to-xxx-reusable.yml
+    with:
+      #You can specify the solution name here
+      solution_name: DemoEnvironment
+      #Update your values here
+      BUILD_ENVIRONMENT_URL: 'https://xxxxxxxxxx.crm4.dynamics.com/'
+      TARGET_ENVIRONMENT_URL: 'https://yyyyyyyyyy.crm4.dynamics.com/'
+      CLIENT_ID: 'replace with your client id'
+      TENANT_ID: 'replace with your tenant id'  
+    secrets:
+     envSecret: ${{ secrets.PowerPlatformSPN }}
