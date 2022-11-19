@@ -3,7 +3,7 @@ Github Actions for Managing Microsofts PVA as a template for PVA Projects
 
 ## secrets you need to setup 
 PowerPlatformSPN : service principal secret  
-please find a [howto create one](https://the.cognitiveservices.ninja/articles/helper02/) article in the.cognitiveservices.ninja blog
+please find a [howto create one](https://the.cognitiveservices.ninja/build-your-first-voice-bot-with-microsoft-power-virtual-agent-3e71f8531c3a) article in the.cognitiveservices.ninja blog
 
 
 ## actions:
