@@ -1,11 +1,10 @@
-name: Release action production DDComs
+name: Release action production
 # Call the reusable workflow release-solution-to-xxx-reusable.yml
 # Release your solution to staging.
 
 on:
-  pull_request:
-    types:
-      - closed
+  release:
+    types: [created]
   workflow_dispatch:
   
   
